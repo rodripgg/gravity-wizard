@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b6wfomgcyv100"]
+
+[ext_resource type="Texture2D" uid="uid://fa3c0jpchqc8" path="res://assets/sprites/tiles/tilemap.png" id="1_p6prp"]
+[ext_resource type="Script" uid="uid://yvsw2dh2f2n4" path="res://scripts/objects/gravity_box.gd" id="1_pf1o4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pf1o4"]
+size = Vector2(16, 16)
+
+[node name="GravityBox" type="CharacterBody2D" unique_id=761904488]
+script = ExtResource("1_pf1o4")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=1893130996]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals" unique_id=455146597]
+texture = ExtResource("1_p6prp")
+region_enabled = true
+region_rect = Rect2(114, 19, 18, 18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1265501508]
+shape = SubResource("RectangleShape2D_pf1o4")
+debug_color = Color(0.8968192, 0.11652557, 0.7195033, 0.41960785)
