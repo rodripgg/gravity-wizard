@@ -17,9 +17,20 @@ extends CharacterBody2D
 @onready var aim_line: Line2D = $SpellPivot/AimLine
 
 @export_category("Spell")
-@export var spell_range: float = 280.0
+@export var spell_range: float = 600.0
 @export var spell_cooldown: float = 0.25
+@export var spell_projectile_scene: PackedScene
+@export var spell_cast_animation_time: float = 0.28
+@export var aim_flip_threshold: float = 0.15
+@export var spell_release_delay: float = 0.15
+
+@export_category("Death")
+@export var death_restart_delay: float = 0.9
+
 var can_cast_spell: bool = true
+var is_casting_spell: bool = false
+
+var is_dead: bool = false
 
 var gravity_dir: Vector2 = Vector2.DOWN
 var facing_dir: int = 1
@@ -27,6 +38,9 @@ var aim_dir: Vector2 = Vector2.RIGHT
 
 
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		velocity = Vector2.ZERO
+		return
 	handle_movement(delta)
 	handle_aiming()
 	update_animation()
@@ -67,6 +81,16 @@ func handle_aiming() -> void:
 		"aim_up",
 		"aim_down"
 	)
+	if gamepad_vector.length() > gamepad_aim_deadzone:
+		aim_dir = gamepad_vector.normalized()
+	else:
+		aim_dir = (get_global_mouse_position() - spell_origin.global_position).normalized()
+
+	if aim_dir.length() <= 0.01:
+		aim_dir = Vector2.RIGHT * facing_dir
+
+	spell_pivot.rotation = aim_dir.angle()
+	update_facing_from_aim()
 
 	if gamepad_vector.length() > gamepad_aim_deadzone:
 		aim_dir = gamepad_vector.normalized()
@@ -80,9 +104,12 @@ func handle_aiming() -> void:
 
 
 func update_animation() -> void:
+	if is_dead:
+		return
+	if is_casting_spell:
+		return
 	if not animated_sprite.sprite_frames:
 		return
-
 	if not is_on_floor():
 		if velocity.dot(gravity_dir) > 0.0:
 			play_animation("fall")
@@ -129,10 +156,18 @@ func cast_gravity_spell() -> void:
 	if not can_cast_spell:
 		return
 
-	can_cast_spell = false
+	if spell_projectile_scene == null:
+		push_warning("No se asignó spell_projectile_scene en el Player.")
+		return
 
+	can_cast_spell = false
+	play_cast_animation()
+	await get_tree().create_timer(spell_release_delay).timeout
 	var from: Vector2 = spell_origin.global_position
 	var to: Vector2 = from + aim_dir * spell_range
+
+	var hit_position: Vector2 = to
+	var hit_object: Object = null
 
 	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
 
@@ -144,27 +179,60 @@ func cast_gravity_spell() -> void:
 	var result: Dictionary = space_state.intersect_ray(query)
 
 	if not result.is_empty():
-		var hit_position: Vector2 = result["position"]
-		var collider: Object = result["collider"] as Object
+		hit_position = result["position"]
+		hit_object = result["collider"] as Object
 
-		draw_spell_debug(from, hit_position)
-
-		if collider != null and collider.has_method("apply_gravity_spell"):
-			collider.call("apply_gravity_spell")
-	else:
-		draw_spell_debug(from, to)
+	spawn_gravity_spell_projectile(from, hit_position, hit_object)
 
 	await get_tree().create_timer(spell_cooldown).timeout
 	can_cast_spell = true
 
-func draw_spell_debug(from: Vector2, to: Vector2) -> void:
-	var local_from := spell_pivot.to_local(from)
-	var local_to := spell_pivot.to_local(to)
+func spawn_gravity_spell_projectile(
+	from: Vector2,
+	to: Vector2,
+	hit_object: Object
+) -> void:
+	var projectile: Node2D = spell_projectile_scene.instantiate() as Node2D
 
-	aim_line.clear_points()
-	aim_line.add_point(local_from)
-	aim_line.add_point(local_to)
-	aim_line.visible = true
+	get_tree().current_scene.add_child(projectile)
 
-	await get_tree().create_timer(0.08).timeout
-	aim_line.visible = false
+	if projectile.has_method("setup"):
+		projectile.call("setup", from, to, hit_object)
+
+func play_cast_animation() -> void:
+	if animated_sprite.sprite_frames == null:
+		return
+
+	if not animated_sprite.sprite_frames.has_animation("cast"):
+		return
+
+	is_casting_spell = true
+	animated_sprite.play("cast")
+
+	await get_tree().create_timer(spell_cast_animation_time).timeout
+
+	is_casting_spell = false
+
+func update_facing_from_aim() -> void:
+	if aim_dir.x > aim_flip_threshold:
+		facing_dir = 1
+		visuals.scale.x = 1
+	elif aim_dir.x < -aim_flip_threshold:
+		facing_dir = -1
+		visuals.scale.x = -1
+
+func die() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	can_cast_spell = false
+	velocity = Vector2.ZERO
+	play_death_animation()
+	await get_tree().create_timer(death_restart_delay).timeout
+	get_tree().reload_current_scene()
+
+func play_death_animation() -> void:
+	if animated_sprite.sprite_frames == null:
+		return
+	if animated_sprite.sprite_frames.has_animation("death"):
+		animated_sprite.play("death")

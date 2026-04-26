@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bhs707kuyxphb" path="res://scripts/player/player.gd" id="1_gfjak"]
 [ext_resource type="Texture2D" uid="uid://jqyednlp0272" path="res://assets/sprites/player/MAGE.png" id="1_wr5hl"]
+[ext_resource type="PackedScene" uid="uid://ykuhibpyeb5j" path="res://scenes/fx/GravitySpellProjectile.tscn" id="2_4kuee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gfjak"]
 size = Vector2(17, 21)
@@ -252,6 +253,7 @@ animations = [{
 [node name="Player" type="CharacterBody2D" unique_id=1587560102]
 scale = Vector2(1.3, 1.3)
 script = ExtResource("1_gfjak")
+spell_projectile_scene = ExtResource("2_4kuee")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=688851718]
 position = Vector2(-1.5, 8.5)
@@ -272,6 +274,7 @@ position = Vector2(0, 5)
 [node name="SpellOrigin" type="Marker2D" parent="SpellPivot" unique_id=204800650]
 
 [node name="AimLine" type="Line2D" parent="SpellPivot" unique_id=1283296522]
+visible = false
 points = PackedVector2Array(0, 0, 40, 0)
 width = 2.0
 

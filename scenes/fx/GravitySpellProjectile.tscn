@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ykuhibpyeb5j"]
+
+[ext_resource type="Script" uid="uid://0s8yrqsi1oev" path="res://scripts/fx/gravity_spell_projectile.gd" id="1_qlh1m"]
+
+[node name="GravitySpellProjectile" type="Node2D" unique_id=11142398]
+script = ExtResource("1_qlh1m")

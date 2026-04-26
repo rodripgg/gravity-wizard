@@ -32,6 +32,5 @@ func apply_gravity_spell() -> void:
 
 func invert_gravity() -> void:
 	gravity_dir *= -1.0
-	visuals.scale.y *= -1.0
 	velocity = Vector2.ZERO
 	up_direction = -gravity_dir
