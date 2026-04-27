@@ -296,33 +296,16 @@ region_enabled = true
 region_rect = Rect2(342, 133, 18, 18)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1240921036]
-layer = 50
-offset = Vector2(20, 30)
-transform = Transform2D(1, 0, 0, 1, 20, 30)
 
 [node name="ManaPanel" type="Control" parent="HUD" unique_id=1776896906]
-custom_minimum_size = Vector2(350, 24)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 180.0
-offset_bottom = 24.0
-
-[node name="ManaBackground" type="ColorRect" parent="HUD/ManaPanel" unique_id=1374654748]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.6666667)
 
 [node name="ManaBar" type="ProgressBar" parent="HUD/ManaPanel" unique_id=1346887964]
-clip_contents = true
-custom_minimum_size = Vector2(180, 14)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(160, 14)
+layout_mode = 0
+offset_left = -274.0
+offset_top = -146.0
+offset_right = -114.0
+offset_bottom = -119.0
 show_percentage = false

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://didq3m5cqnlc0"]
+
+[ext_resource type="Script" uid="uid://csbcjepl8361a" path="res://scripts/fx/auto_free_particles.gd" id="1_rdnh2"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_birfq"]
+particle_flag_disable_z = true
+initial_velocity_min = 35.0
+initial_velocity_max = 90.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+color = Color(1, 0.03529412, 1, 1)
+
+[node name="SpellCastParticles" type="Node2D" unique_id=2103546436]
+script = ExtResource("1_rdnh2")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=373688378]
+scale = Vector2(2, 2)
+emitting = false
+amount = 16
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_birfq")

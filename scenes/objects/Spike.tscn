@@ -7,6 +7,8 @@
 size = Vector2(20, 9)
 
 [node name="Spike" type="Area2D" unique_id=890180704]
+collision_layer = 16
+collision_mask = 2
 script = ExtResource("1_hop5j")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2094249918]

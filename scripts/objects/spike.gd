@@ -7,4 +7,4 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body.has_method("die"):
-		body.call("die")
+		body.call("die", global_position)

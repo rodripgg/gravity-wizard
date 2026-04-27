@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://o65ipw740s2d"]
+
+[ext_resource type="Texture2D" uid="uid://fa3c0jpchqc8" path="res://assets/sprites/tiles/tilemap.png" id="1_5gwuv"]
+[ext_resource type="Script" uid="uid://b57fqfpa2v4v1" path="res://scripts/objects/goal_diamond.gd" id="1_38jme"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5gwuv"]
+radius = 7.0
+
+[node name="Diamond" type="Area2D" unique_id=1980266109]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_38jme")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=998826784]
+texture = ExtResource("1_5gwuv")
+region_enabled = true
+region_rect = Rect2(133, 57, 18, 18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1486650489]
+shape = SubResource("CircleShape2D_5gwuv")
+debug_color = Color(0.606508, 0.3651789, 1, 0.41960785)

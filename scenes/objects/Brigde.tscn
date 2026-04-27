@@ -1,0 +1,21 @@
+[gd_scene format=4 uid="uid://bjowlvw2qfgbd"]
+
+[ext_resource type="Script" uid="uid://b21acq4jk6qvc" path="res://scripts/objects/brigde.gd" id="1_j1nai"]
+[ext_resource type="TileSet" uid="uid://bcjmjyq4txmbn" path="res://assets/sprites/tiles/KennieTileMapPlatformer.tres" id="2_57ikp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ft17v"]
+size = Vector2(272, 20)
+
+[node name="Brigde" type="StaticBody2D" unique_id=1741354282]
+script = ExtResource("1_j1nai")
+
+[node name="VisualPivot" type="Node2D" parent="." unique_id=1025499439]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="VisualPivot" unique_id=255601547]
+tile_map_data = PackedByteArray("AAD4/wAAAAAIAAIAAAD5/wAAAAAJAAIAAAD6/wAAAAAJAAIAAAD7/wAAAAAJAAIAAAD8/wAAAAAJAAIAAAD9/wAAAAAJAAIAAAD+/wAAAAAJAAIAAAD//wAAAAAJAAIAAAAAAAAAAAAJAAIAAAABAAAAAAAJAAIAAAACAAAAAAAJAAIAAAADAAAAAAAJAAIAAAAEAAAAAAAJAAIAAAAFAAAAAAAJAAIAAAAGAAAAAAAKAAIAAAA=")
+tile_set = ExtResource("2_57ikp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1354671145]
+position = Vector2(-8, 10)
+shape = SubResource("RectangleShape2D_ft17v")
+disabled = true

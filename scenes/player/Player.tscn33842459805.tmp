@@ -257,8 +257,31 @@ scale = Vector2(1.3, 1.3)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_gfjak")
+move_speed = null
+acceleration = null
+friction = null
+jump_velocity = null
+gravity_force = null
+gamepad_aim_deadzone = null
+gamepad_reticle_distance = null
+hide_system_cursor = null
+spell_range = null
+spell_cooldown = null
 spell_projectile_scene = ExtResource("2_4kuee")
+spell_cast_animation_time = null
+aim_flip_threshold = null
+spell_release_delay = null
 spell_cast_particles_scene = ExtResource("3_tpg5x")
+death_restart_delay = null
+death_bounce_horizontal_force = null
+death_bounce_vertical_force = null
+death_gravity_force = null
+death_flash_time = null
+max_mana = null
+current_mana = null
+spell_mana_cost = null
+self_gravity_mana_cost = null
+mana_regen_per_second = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=688851718]
 position = Vector2(-1.5, 8.5)
@@ -296,33 +319,16 @@ region_enabled = true
 region_rect = Rect2(342, 133, 18, 18)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1240921036]
-layer = 50
-offset = Vector2(20, 30)
-transform = Transform2D(1, 0, 0, 1, 20, 30)
 
 [node name="ManaPanel" type="Control" parent="HUD" unique_id=1776896906]
-custom_minimum_size = Vector2(350, 24)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 180.0
-offset_bottom = 24.0
-
-[node name="ManaBackground" type="ColorRect" parent="HUD/ManaPanel" unique_id=1374654748]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.6666667)
 
 [node name="ManaBar" type="ProgressBar" parent="HUD/ManaPanel" unique_id=1346887964]
-clip_contents = true
-custom_minimum_size = Vector2(180, 14)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(160, 14)
+layout_mode = 0
+offset_left = -274.0
+offset_top = -146.0
+offset_right = -114.0
+offset_bottom = -119.0
 show_percentage = false

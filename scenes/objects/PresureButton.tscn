@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://xvs5bw1morq2"]
+
+[ext_resource type="Texture2D" uid="uid://fa3c0jpchqc8" path="res://assets/sprites/tiles/tilemap.png" id="1_0w05p"]
+[ext_resource type="Script" uid="uid://c2wnoc4v44x0m" path="res://scripts/objects/presure_button.gd" id="1_kf4k0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf4k0"]
+size = Vector2(16, 6)
+
+[node name="PresureButton" type="Area2D" unique_id=611143308]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("1_kf4k0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=907963073]
+texture = ExtResource("1_0w05p")
+region_enabled = true
+region_rect = Rect2(133, 95, 18, 18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1862662530]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_kf4k0")
